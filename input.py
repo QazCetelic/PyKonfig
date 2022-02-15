@@ -1,10 +1,7 @@
 import enum
-from util import __set_value_for_key_in_file, __get_value_for_key_in_file, home, __append_key_to_file, \
-    __remove_key_from_file
+from util import __set_value_for_key_in_file, __get_value_for_key_in_file, __home, __append_key_to_file, \
+    __remove_key_from_file, __kcminputrc_path, __kxkbrc_path, __kdeglobals_path
 
-kcminputrc_path = f"{home}/.config/kcminputrc"
-kxkbrc_path = f"{home}/.config/kxkbrc"
-kdeglobals_path = f"{home}/.config/kdeglobals"
 
 # Set the behaviour for the numlock state on plasma startup
 class NUMLOCK_STARTUP(enum.Enum):
@@ -12,42 +9,42 @@ class NUMLOCK_STARTUP(enum.Enum):
     TURN_OFF = 1
     LEAVE_UNCHANGED = 2
 def set_numlock_on_startup(numlock_startup: NUMLOCK_STARTUP):
-    __set_value_for_key_in_file(kcminputrc_path, "NumLock", numlock_startup.value)
+    __set_value_for_key_in_file(__kcminputrc_path, "NumLock", numlock_startup.value)
 def get_numlock_on_startup() -> NUMLOCK_STARTUP:
-    return NUMLOCK_STARTUP(int(__get_value_for_key_in_file(kcminputrc_path, "NumLock")))
+    return NUMLOCK_STARTUP(int(__get_value_for_key_in_file(__kcminputrc_path, "NumLock")))
 
 # Set the behaviour for holding down the key
 class HOLD_KEY(enum.Enum):
     REPEAT_THE_KEY = "repeat"
     DO_NOTHING = "nothing"
 def set_hold_key(hold_key: HOLD_KEY):
-    __set_value_for_key_in_file(kcminputrc_path, "KeyRepeat", hold_key.value)
+    __set_value_for_key_in_file(__kcminputrc_path, "KeyRepeat", hold_key.value)
 def get_hold_key() -> HOLD_KEY:
-    return LAYOUT_SWITCHING_POLICY(int(__get_value_for_key_in_file(kcminputrc_path, "KeyRepeat")))
+    return LAYOUT_SWITCHING_POLICY(int(__get_value_for_key_in_file(__kcminputrc_path, "KeyRepeat")))
 
 # Set the delay for repeating a key
 def set_repeat_delay(repeat_delay: int):
-    __set_value_for_key_in_file(kcminputrc_path, "RepeatDelay", repeat_delay)
+    __set_value_for_key_in_file(__kcminputrc_path, "RepeatDelay", repeat_delay)
 def get_repeat_delay() -> int:
-    return int(__get_value_for_key_in_file(kcminputrc_path, "RepeatDelay"))
+    return int(__get_value_for_key_in_file(__kcminputrc_path, "RepeatDelay"))
 
 # Set the rare for repeating a key
 def set_repeat_rate(repeat_rate: int):
-    __set_value_for_key_in_file(kcminputrc_path, "RepeatRate", repeat_rate)
+    __set_value_for_key_in_file(__kcminputrc_path, "RepeatRate", repeat_rate)
 def get_repeat_rate() -> int:
-    return int(__get_value_for_key_in_file(kcminputrc_path, "RepeatRate"))
+    return int(__get_value_for_key_in_file(__kcminputrc_path, "RepeatRate"))
 
 # Set natural scroll
 def set_natural_scroll(natural_scroll: bool):
-    __set_value_for_key_in_file(kcminputrc_path, "NaturalScroll", natural_scroll)
+    __set_value_for_key_in_file(__kcminputrc_path, "NaturalScroll", natural_scroll)
 def get_natural_scroll() -> bool:
-    return bool(__get_value_for_key_in_file(kcminputrc_path, "NaturalScroll"))
+    return bool(__get_value_for_key_in_file(__kcminputrc_path, "NaturalScroll"))
 
 # Set tap to click
 def set_tap_to_click(tap_to_click: bool):
-    __set_value_for_key_in_file(kcminputrc_path, "TapToClick", tap_to_click)
+    __set_value_for_key_in_file(__kcminputrc_path, "TapToClick", tap_to_click)
 def get_tap_to_click() -> bool:
-    return bool(__get_value_for_key_in_file(kcminputrc_path, "TapToClick"))
+    return bool(__get_value_for_key_in_file(__kcminputrc_path, "TapToClick"))
 
 # Set the policy for switching keyboard layouts
 class LAYOUT_SWITCHING_POLICY(enum.Enum):
@@ -56,15 +53,15 @@ class LAYOUT_SWITCHING_POLICY(enum.Enum):
     APPLICATION = "Application"
     WINDOW = "Window"
 def set_layout_switching_policy(layout_switching_policy: LAYOUT_SWITCHING_POLICY):
-    __set_value_for_key_in_file(kxkbrc_path, "SwitchMode", layout_switching_policy.value)
+    __set_value_for_key_in_file(__kxkbrc_path, "SwitchMode", layout_switching_policy.value)
 def get_layout_switching_policy() -> LAYOUT_SWITCHING_POLICY:
-    return LAYOUT_SWITCHING_POLICY(__get_value_for_key_in_file(kxkbrc_path, "SwitchMode"))
+    return LAYOUT_SWITCHING_POLICY(__get_value_for_key_in_file(__kxkbrc_path, "SwitchMode"))
 
 def enable_keyboard_options():
-    __append_key_to_file(kxkbrc_path, "Options", "Model")
+    __append_key_to_file(__kxkbrc_path, "Options", "Model")
 
 def disable_keyboard_options():
-    __remove_key_from_file(kxkbrc_path, "Options")
+    __remove_key_from_file(__kxkbrc_path, "Options")
 
 # Sets the advanced layout options such as the position of the compose key
 def set_keyboard_options(options: {str: [str]}) -> None:
@@ -74,9 +71,9 @@ def set_keyboard_options(options: {str: [str]}) -> None:
         # Goes through each key assigned for the option
         for key in option[1]:
             option_string += f"{option}:{option[1]},"
-    __set_value_for_key_in_file(kxkbrc_path, "Options", option_string.removesuffix(","))
+    __set_value_for_key_in_file(__kxkbrc_path, "Options", option_string.removesuffix(","))
 def get_keyboard_options() -> {str: [str]}:
-    option_string = __get_value_for_key_in_file(kxkbrc_path, "Options")
+    option_string = __get_value_for_key_in_file(__kxkbrc_path, "Options")
     # In case the config key is removed because it's disabled
     if option_string is None:
         return {}
@@ -113,12 +110,12 @@ def set_layout_list(layout_list: [(str, str)]):
     type_list_string = type_list_string.removesuffix(",")
     variant_list_string = variant_list_string.removesuffix(",")
 
-    __set_value_for_key_in_file(kxkbrc_path, "LayoutList", type_list_string)
-    __set_value_for_key_in_file(kxkbrc_path, "VariantList", variant_list_string)
+    __set_value_for_key_in_file(__kxkbrc_path, "LayoutList", type_list_string)
+    __set_value_for_key_in_file(__kxkbrc_path, "VariantList", variant_list_string)
 
 def get_layout_list() -> [(str, str)]:
-    type_list = __get_value_for_key_in_file(kxkbrc_path, "LayoutList").split(",")
-    variant_list = __get_value_for_key_in_file(kxkbrc_path, "VariantList").split(",")
+    type_list = __get_value_for_key_in_file(__kxkbrc_path, "LayoutList").split(",")
+    variant_list = __get_value_for_key_in_file(__kxkbrc_path, "VariantList").split(",")
     layout_list: [(str, str)] = []
     if len(type_list) == len(variant_list):
         for i in range(len(type_list)):
@@ -130,11 +127,12 @@ def get_layout_list() -> [(str, str)]:
 get_layout_list.__doc__ = "Returns a list of all layouts; consisting of a layout type e.g. 'us' and type e.g. 'euro'"
 
 def get_keyboard_model() -> str:
-    return __get_value_for_key_in_file(kxkbrc_path, "Model")
+    return __get_value_for_key_in_file(__kxkbrc_path, "Model")
 def set_keyboard_model(model: str):
-    __set_value_for_key_in_file(kxkbrc_path, "Model", model)
+    __set_value_for_key_in_file(__kxkbrc_path, "Model", model)
 
+# Clicking files or folders either opens them or selects them, the former if True, the latter if False
 def get_single_click() -> bool:
-    return bool(__get_value_for_key_in_file(kdeglobals_path, "SingleClick"))
+    return bool(__get_value_for_key_in_file(__kdeglobals_path, "SingleClick"))
 def set_single_click(single_click: bool):
-    __set_value_for_key_in_file(kdeglobals_path, "SingleClick", single_click)
+    __set_value_for_key_in_file(__kdeglobals_path, "SingleClick", single_click)

@@ -1,6 +1,11 @@
 import pathlib
 from pathlib import Path
 
+__home: str = pathlib.Path.home().__str__()
+__kcminputrc_path = f"{__home}/.config/kcminputrc"
+__kxkbrc_path = f"{__home}/.config/kxkbrc"
+__kdeglobals_path = f"{__home}/.config/kdeglobals"
+__plasma_user_feedback_path = f"{__home}/.config/PlasmaUserFeedback"
 
 def __set_value_for_key_in_file(file_path: str, key: str, value):
     file = open(file_path, "a")
@@ -9,6 +14,10 @@ def __set_value_for_key_in_file(file_path: str, key: str, value):
     found = False
     for line in lines:
         if not found and line.startswith(key):
+            # Make boolean values lowercase
+            if isinstance(value, bool):
+                value = str(value).lower()
+
             new_lines += f"{key}={value}"
             found = True
         else:
@@ -48,5 +57,3 @@ def __remove_key_from_file(file_path: str, key: str):
     new_lines = filter(lambda line: not line.startswith(key), file.readlines())
     file.writelines(new_lines)
     file.close()
-
-home: str = pathlib.Path.home().__str__()
