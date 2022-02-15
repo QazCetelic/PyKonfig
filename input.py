@@ -4,6 +4,7 @@ from util import __set_value_for_key_in_file, __get_value_for_key_in_file, home,
 
 kcminputrc_path = f"{home}/.config/kcminputrc"
 kxkbrc_path = f"{home}/.config/kxkbrc"
+kdeglobals_path = f"{home}/.config/kdeglobals"
 
 # Set the behaviour for the numlock state on plasma startup
 class NUMLOCK_STARTUP(enum.Enum):
@@ -28,25 +29,25 @@ def get_hold_key() -> HOLD_KEY:
 def set_repeat_delay(repeat_delay: int):
     __set_value_for_key_in_file(kcminputrc_path, "RepeatDelay", repeat_delay)
 def get_repeat_delay() -> int:
-    return __get_value_for_key_in_file(kcminputrc_path, "RepeatDelay")
+    return int(__get_value_for_key_in_file(kcminputrc_path, "RepeatDelay"))
 
 # Set the rare for repeating a key
 def set_repeat_rate(repeat_rate: int):
     __set_value_for_key_in_file(kcminputrc_path, "RepeatRate", repeat_rate)
 def get_repeat_rate() -> int:
-    return __get_value_for_key_in_file(kcminputrc_path, "RepeatRate")
+    return int(__get_value_for_key_in_file(kcminputrc_path, "RepeatRate"))
 
 # Set natural scroll
 def set_natural_scroll(natural_scroll: bool):
     __set_value_for_key_in_file(kcminputrc_path, "NaturalScroll", natural_scroll)
 def get_natural_scroll() -> bool:
-    return __get_value_for_key_in_file(kcminputrc_path, "NaturalScroll")
+    return bool(__get_value_for_key_in_file(kcminputrc_path, "NaturalScroll"))
 
 # Set tap to click
 def set_tap_to_click(tap_to_click: bool):
     __set_value_for_key_in_file(kcminputrc_path, "TapToClick", tap_to_click)
 def get_tap_to_click() -> bool:
-    return __get_value_for_key_in_file(kcminputrc_path, "TapToClick")
+    return bool(__get_value_for_key_in_file(kcminputrc_path, "TapToClick"))
 
 # Set the policy for switching keyboard layouts
 class LAYOUT_SWITCHING_POLICY(enum.Enum):
@@ -132,3 +133,8 @@ def get_keyboard_model() -> str:
     return __get_value_for_key_in_file(kxkbrc_path, "Model")
 def set_keyboard_model(model: str):
     __set_value_for_key_in_file(kxkbrc_path, "Model", model)
+
+def get_single_click() -> bool:
+    return bool(__get_value_for_key_in_file(kdeglobals_path, "SingleClick"))
+def set_single_click(single_click: bool):
+    __set_value_for_key_in_file(kdeglobals_path, "SingleClick", single_click)
