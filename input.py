@@ -99,6 +99,8 @@ def get_keyboard_options() -> {str: [str]}:
 
     return options
 
+get_keyboard_options.__doc__ = "Returns a dict with options and the keys assigned to them e.g. {'compose': ['menu']}"
+
 # Sets the list of various layouts types and variants
 def set_layout_list(layout_list: [(str, str)]):
     type_list_string = ""
@@ -123,6 +125,8 @@ def get_layout_list() -> [(str, str)]:
     else:
         raise Exception("The number of layout types and variants must be the same, the configs are not valid")
     return layout_list
+
+get_layout_list.__doc__ = "Returns a list of all layouts; consisting of a layout type e.g. 'us' and type e.g. 'euro'"
 
 def get_keyboard_model() -> str:
     return __get_value_for_key_in_file(kxkbrc_path, "Model")

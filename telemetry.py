@@ -14,3 +14,5 @@ def set_feedback_level(numlock_startup: FEEDBACK_LEVEL):
     __set_value_for_key_in_file(plasma_user_feedback_path, "FeedbackLevel", numlock_startup.value)
 def get_feedback_level() -> FEEDBACK_LEVEL:
     return FEEDBACK_LEVEL(int(__get_value_for_key_in_file(plasma_user_feedback_path, "FeedbackLevel")))
+
+get_feedback_level.__doc__ = "Returns enum e.g. BASIC_SYSTEM_INFORMATION"
