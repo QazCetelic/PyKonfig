@@ -1,3 +1,5 @@
+# Made obsolete by [konsave](https://github.com/Prayag2/konsave)!
+
 # PyKonfig
 Python code to read and write KDE Plasma Desktop configs for quick configuration.
 [shalva97's _kde-configuration-files_](https://github.com/shalva97/kde-configuration-files) repo was used for the locations of the config files.
